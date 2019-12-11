@@ -1,0 +1,24 @@
+{
+  "name": "mfs-homework",
+  "version": "1.0.0",
+  "description": "> 码蜂社 Web 突破班作业答题库\r **码蜂社和Pudim版权所有，转载请注明出处**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a735315482/mfs-homework2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a735315482/mfs-homework2/issues"
+  },
+  "homepage": "https://github.com/a735315482/mfs-homework2#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <style>
+        .a {
+            height: 500px;
+        }
+        
+        img {
+            height: 853px;
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a"></div>
+    <div class="a"></div>
+    <div class="a"></div>
+    <img data-src="http://e.hiphotos.baidu.com/image/pic/item/4610b912c8fcc3cef70d70409845d688d53f20f7.jpg" alt="">
+    <div class="a"></div>
+    <div class="a"></div>
+
+    <script>
+        function isShow($node) {
+            var windowH = $(window).height();
+            var scrollTop = $(window).scrollTop();
+            var nodeOT = $node.offset().top;
+            var nodeH = $node.height();
+            return nodeOT <= scrollTop + windowH && nodeOT + nodeH >= scrollTop
+        }
+
+        function lazyImg($node) {
+            var timer;
+            window.onscroll = function() {
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    console.log(isShow($node))
+                    if (isShow($node)) {
+                        $node.attr("src", $node.data('src'));
+                    }
+                }, 50)
+            }
+        }
+        new lazyImg($("img"));
+    </script>
+</body>
+
+</html>

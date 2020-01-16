@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <style>
+        .info {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/">
+        用户名：<input type="text" id="username" name="username" pattern="^[a-zA-Z_]\w{5,17}$" required>以字母开头，6-18个字符
+        </br> 密码:<input type="password" id="password" name="password" pattern="\w{6,18}" oninput="pwdChange()" required>6-18个字符
+        </br>重复密码:<input type="password" id="pwd-rpt" name="pwd-rpt" oninput="pwd_rptChange()" required>
+        <input type="submit" />
+    </form>
+
+
+
+    <script>
+        var password;
+        var oPassword = document.getElementById("password");
+        var oPwd_rpt = document.getElementById("pwd-rpt");
+        var username;
+        var oUsername = document.getElementById("username");
+
+        function pwdChange() {
+            password = oPassword.value;
+        }
+
+        function pwd_rptChange() {
+            if (password == oPwd_rpt.value) {
+                oPwd_rpt.setCustomValidity("")
+            } else {
+                oPwd_rpt.setCustomValidity("两次密码输入不一致")
+            }
+
+        }
+
+        var timerUsername;
+
+        $('#username').on("imput", function() {
+            clearTimeout(timerUsername);
+
+            timerUsername = setTimeout(function() {
+                $.ajax({
+                    url: "/username-check",
+                    method: "post",
+                    data: {
+                        username: oUsername.value
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.result == 0) {
+                            oUsername.setCustomValidity("");
+                        } else {
+                            oUsername.setCustomValidity("用户名不可用");
+                        }
+                    }
+                })
+            }, 1000)
+
+        })
+    </script>
+</body>
+
+</html>

@@ -48,7 +48,7 @@
 
         var timerUsername;
 
-        $('#username').on("imput", function() {
+        $('#username').on("input", function() {
             clearTimeout(timerUsername);
 
             timerUsername = setTimeout(function() {
@@ -56,14 +56,14 @@
                     url: "/username-check",
                     method: "post",
                     data: {
-                        username: oUsername.value
+                        username: $('#username').val()
                     },
                     dataType: "json",
                     success: function(data) {
                         if (data.result == 0) {
-                            oUsername.setCustomValidity("");
+                            $('#username')[0].setCustomValidity("");
                         } else {
-                            oUsername.setCustomValidity("用户名不可用");
+                            $('#username')[0].setCustomValidity("用户已存在");
                         }
                     }
                 })

@@ -23,18 +23,24 @@
         }
         
         button {
-            width: 30vh;
-            height: 8vh;
+            width: 20vh;
+            height: 6vh;
+        }
+        
+        .blank {
+            height: 50px;
+            ;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">Pudim翻译器 v2.0</div>
+    <div class="header">Pudim翻译器 v2.1</div>
     <div class="container">
         <div>
             <input type="text" id="en"><button id="btn_en" onclick="encode()">加密</button>
         </div>
+        <div class="blank"></div>
         <div>
             <input type="text" id="de"><button id="btn_de" onclick="decode()">解密</button>
         </div>

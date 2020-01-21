@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>交流加密</title>
-    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <!--<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>-->
     <style>
         .header {
             color: red;
@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <div class="header">Pudim加密器 v2.1</div>
+    <div class="header">Pudim加密器 v3.0</div>
     <div class="container">
         <div>
             <input type="text" id="en"><button id="btn_en" onclick="encode()">加密</button>
@@ -48,10 +48,12 @@
     </div>
 
     <script>
+        var key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
         function encode() {
-            var str = $('#en').val();
-            //定义密钥，36个字母和数字
-            var key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            //var str = $('#en').val();
+            var str = document.getElementById("en").value;
+
             var length = key.length; //获取密钥的长度
             var a = key.split(""); //把密钥字符串转换为字符数组
             var s = "",
@@ -66,14 +68,15 @@
                 s += a[b3] + a[b2] + a[b1]; //根据余数值映射到密钥中对应下标位置的字符
             }
             console.log(s); //返回这些映射的字符
-            var Ode = $('#de')[0];
+            //var Ode = $('#de')[0];
+            var Ode = document.getElementById('de');
             Ode.value = s;
         }
 
         function decode() {
-            var str = $('#de').val();
-            //定义密钥，36个字母和数字
-            var key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            //var str = $('#de').val();
+            var str = document.getElementById('de').value;
+
             var length = key.length; //获取密钥的长度
             var b, b1, b2, b3, d = 0,
                 s; //定义临时变量
@@ -91,7 +94,8 @@
             b = eval("String.fromCharCode(" + s.join(',') + ")");
             //用fromCharCode() 算出字符串
             console.log(b); //返回这些映射的字符
-            var Oen = $('#en')[0];
+            //var Oen = $('#en')[0];
+            var Oen = document.getElementById('en');
             Oen.value = b;
 
         }

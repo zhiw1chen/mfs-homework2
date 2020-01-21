@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <style>
+        .header {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">Pudim翻译器 v1.0</div>
+    <div class="container">
+        <div>
+            <input type="text" id="en"><button id="btn_en" onclick="encode()">加密</button>
+        </div>
+        <div>
+            <input type="text" id="de"><button id="btn_de" onclick="decode()">解密</button>
+        </div>
+
+    </div>
+
+    <script>
+        function encode() {
+            var str = $('#en').val();
+            //定义密钥，36个字母和数字
+            var key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var length = key.length; //获取密钥的长度
+            var a = key.split(""); //把密钥字符串转换为字符数组
+            var s = "",
+                b, b1, b2, b3; //定义临时变量
+            for (var i = 0; i < str.length; i++) { //遍历字符串
+                b = str.charCodeAt(i); //逐个提取每个字符，并获取Unicode编码值
+                b1 = b % length; //求Unicode编码值得余数
+                b = (b - b1) / length; //求最大倍数
+                b2 = b % length; //求最大倍数的于是
+                b = (b - b2) / length; //求最大倍数
+                b3 = b % length; //求最大倍数的余数
+                s += a[b3] + a[b2] + a[b1]; //根据余数值映射到密钥中对应下标位置的字符
+            }
+            console.log(s); //返回这些映射的字符
+            var Ode = $('#de')[0];
+            Ode.value = s;
+        }
+
+        function decode() {
+            var str = $('#de').val();
+            //定义密钥，36个字母和数字
+            var key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var length = key.length; //获取密钥的长度
+            var b, b1, b2, b3, d = 0,
+                s; //定义临时变量
+            s = new Array(Math.floor(str.length / 3)); //计算加密字符串包含的字符数，并定义数组
+            b = s.length; //获取数组的长度
+            for (var i = 0; i < b; i++) { //以数组的长度循环次数，遍历加密字符串
+                b1 = key.indexOf(str.charAt(d)); //截取周期内第一个字符串，计算在密钥中的下标值
+                d++;
+                b2 = key.indexOf(str.charAt(d)); //截取周期内第二个字符串，计算在密钥中的下标值
+                d++;
+                b3 = key.indexOf(str.charAt(d)); //截取周期内第三个字符串，计算在密钥中的下标值
+                d++;
+                s[i] = b1 * length * length + b2 * length + b3 //利用下标值，反推被加密字符的Unicode编码值
+            }
+            b = eval("String.fromCharCode(" + s.join(',') + ")");
+            //用fromCharCode() 算出字符串
+            console.log(b); //返回这些映射的字符
+            var Oen = $('#en')[0];
+            Oen.value = b;
+
+        }
+    </script>
+</body>
+
+</html>

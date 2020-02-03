@@ -1,9 +1,10 @@
 "use strict";
 
-var a = 10;{
-    var _a2 = 11;
-    var b = 12;
-    console.log(_a2);
-}
-var _a = 13;
-console.log(_a);
+var a = 1,
+    b = 2;
+console.log(a, b);
+var _ref = [b, a];
+a = _ref[0];
+b = _ref[1];
+
+console.log(a, b);

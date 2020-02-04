@@ -1,4 +1,11 @@
-function test({ a, b = 10 }) {
-    console.log(a, b)
+let fun = function() {
+    return this.id;
+}.bind(window)
+
+id = 6;
+
+let obj = {
+    id: 1,
+    fun: fun()
 }
-test({ a: 1 });
+obj.fun();

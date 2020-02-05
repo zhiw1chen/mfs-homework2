@@ -1,11 +1,14 @@
-let fun = function() {
-    return this.id;
-}.bind(window)
-
-id = 6;
-
-let obj = {
-    id: 1,
-    fun: fun()
+function timeout(ms, data) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(data);
+        }, ms)
+    })
 }
-obj.fun();
+
+timeout(1000, 'Promise1').then(data => {
+    console.log(data);
+    return timeout(1000, 'Promise2');
+}).then(data => {
+    console.log(data)
+})
